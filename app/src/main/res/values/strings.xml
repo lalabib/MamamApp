@@ -10,6 +10,7 @@
     <string name="area">Area</string>
     <string name="btn_submit">Submit</string>
     <string name="error_message">an error occurred while fetching data</string>
+    <string name="search_error">Meals not found</string>
 
     <string-array name="filter">
         <item>Category</item>

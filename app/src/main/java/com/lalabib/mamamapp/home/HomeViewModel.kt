@@ -1,7 +1,9 @@
 package com.lalabib.mamamapp.home
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import com.lalabib.mamamapp.domain.model.Meals
 import com.lalabib.mamamapp.domain.usecase.MealsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -16,4 +18,7 @@ class HomeViewModel @Inject constructor(private val mealsUseCase: MealsUseCase) 
     fun getMealsByCategory(category: String) = mealsUseCase.getMealsByCategory(category).asLiveData()
 
     fun getMealsByArea(area: String) = mealsUseCase.getMealsByArea(area).asLiveData()
+
+    fun getMealsByName(name: String) = mealsUseCase.getMealsByName(name).asLiveData()
+
 }

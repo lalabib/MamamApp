@@ -85,4 +85,21 @@ class MealsRepository @Inject constructor(private val apiService: ApiService) : 
             }
         }.flowOn(Dispatchers.IO)
     }
+
+    override fun getMealsByName(name: String): Flow<Result<List<Meals>>> {
+        return flow {
+            try {
+                val response = apiService.getMealsByName(name)
+                val dataArray = DataMapper.responseMealsToDomain(response.meals)
+                if (dataArray.isNotEmpty()) {
+                    emit(Result.Success(dataArray))
+                } else {
+                    emit(Result.Loading)
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(e.toString()))
+                Log.e("TAG", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
 }

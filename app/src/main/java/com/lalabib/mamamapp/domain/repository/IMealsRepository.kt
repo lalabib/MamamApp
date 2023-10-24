@@ -15,4 +15,6 @@ interface IMealsRepository {
     fun getMealsByCategory(category: String): Flow<Result<List<Meals>>>
 
     fun getMealsByArea(area: String): Flow<Result<List<Meals>>>
+
+    fun getMealsByName(name: String): Flow<Result<List<Meals>>>
 }

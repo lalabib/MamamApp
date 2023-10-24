@@ -10,6 +10,7 @@ import javax.inject.Inject
 
 class MealsInteractor @Inject constructor(private val mealsRepository: IMealsRepository) :
     MealsUseCase {
+
     override fun getCategories(): Flow<Result<List<CategoryMeals>>> =
         mealsRepository.getCategories()
 
@@ -19,4 +20,7 @@ class MealsInteractor @Inject constructor(private val mealsRepository: IMealsRep
 
     override fun getMealsByArea(area: String): Flow<Result<List<Meals>>> =
         mealsRepository.getMealsByArea(area)
+
+    override fun getMealsByName(name: String): Flow<Result<List<Meals>>> =
+        mealsRepository.getMealsByName(name)
 }

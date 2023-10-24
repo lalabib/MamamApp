@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
+import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -25,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var homeContentHomeBinding: ContentHomeBinding
+    private lateinit var homeContentBinding: ContentHomeBinding
 
     private lateinit var mealsAdapter: MealsAdapter
     private val homeViewModel: HomeViewModel by viewModels()
@@ -34,10 +35,11 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        homeContentHomeBinding = binding.contentHome
+        homeContentBinding = binding.contentHome
 
         setupAction()
         setupMealsByCategory(DEFAULT_VALUE)
+        search()
     }
 
 
@@ -48,7 +50,7 @@ class HomeActivity : AppCompatActivity() {
             setupBottomSheet()
         }
 
-        homeContentHomeBinding.rvMeals.apply {
+        homeContentBinding.rvMeals.apply {
             layoutManager = LinearLayoutManager(this@HomeActivity)
             adapter = mealsAdapter
         }
@@ -119,10 +121,11 @@ class HomeActivity : AppCompatActivity() {
             if (category != null) {
                 when (category) {
                     is Result.Loading -> {
-                        //handle loading
+                        showLoading(true)
                     }
 
                     is Result.Success -> {
+                        showLoading(false)
                         val categoryList = category.data.map { it.strCategory }
                         val adapterCategory =
                             ArrayAdapter(this@HomeActivity, R.layout.dropdown_item, categoryList)
@@ -131,6 +134,7 @@ class HomeActivity : AppCompatActivity() {
                     }
 
                     is Result.Error -> {
+                        showLoading(false)
                         Toast.makeText(
                             this@HomeActivity,
                             getString(R.string.error_message),
@@ -147,10 +151,11 @@ class HomeActivity : AppCompatActivity() {
             if (area != null) {
                 when (area) {
                     is Result.Loading -> {
-                        //handle loading
+                        showLoading(true)
                     }
 
                     is Result.Success -> {
+                        showLoading(false)
                         val areaList = area.data.map { it.strArea }
                         val adapterArea =
                             ArrayAdapter(this@HomeActivity, R.layout.dropdown_item, areaList)
@@ -158,6 +163,7 @@ class HomeActivity : AppCompatActivity() {
                     }
 
                     is Result.Error -> {
+                        showLoading(false)
                         Toast.makeText(
                             this@HomeActivity,
                             getString(R.string.error_message),
@@ -174,14 +180,16 @@ class HomeActivity : AppCompatActivity() {
             if (meals != null) {
                 when (meals) {
                     is Result.Loading -> {
-                        //handle loading
+                        showLoading(true)
                     }
 
                     is Result.Success -> {
+                        showLoading(false)
                         mealsAdapter.submitList(meals.data)
                     }
 
                     is Result.Error -> {
+                        showLoading(false)
                         Toast.makeText(
                             this@HomeActivity,
                             getString(R.string.error_message),
@@ -198,14 +206,16 @@ class HomeActivity : AppCompatActivity() {
             if (meals != null) {
                 when (meals) {
                     is Result.Loading -> {
-                        //handle loading
+                        showLoading(true)
                     }
 
                     is Result.Success -> {
+                        showLoading(false)
                         mealsAdapter.submitList(meals.data)
                     }
 
                     is Result.Error -> {
+                        showLoading(false)
                         Toast.makeText(
                             this@HomeActivity,
                             getString(R.string.error_message),
@@ -215,5 +225,54 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun search() {
+        val search = binding.searchView
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                handleSearchQuery(query)
+                search.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isEmpty()) {
+                    handleSearchQuery("")
+                }
+                return false
+            }
+        })
+    }
+
+    private fun handleSearchQuery(name: String) {
+        homeViewModel.getMealsByName(name).observe(this@HomeActivity) { nameMeals ->
+            if (nameMeals != null) {
+                when (nameMeals) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
+
+                    is Result.Success -> {
+                        showLoading(false)
+                        mealsAdapter.submitList(nameMeals.data)
+                    }
+
+                    is Result.Error -> {
+                        showLoading(false)
+                        Toast.makeText(
+                            this@HomeActivity,
+                            getString(R.string.search_error),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        homeContentBinding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }
