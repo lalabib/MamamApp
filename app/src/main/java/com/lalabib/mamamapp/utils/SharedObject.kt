@@ -10,7 +10,7 @@ object SharedObject {
     const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
     const val DEFAULT_VALUE = "Beef"
 
-    fun loadAvatar(imageView: ImageView, avatar: String) {
+    fun loadAvatar(imageView: ImageView, avatar: String?) {
         Glide.with(imageView.context)
             .load(avatar)
             .apply(

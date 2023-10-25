@@ -25,6 +25,6 @@
     </style>
 
     <style name="mamamApp" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/bg_top_corner</item>
+        <item name="android:background">@drawable/bg_top_corner_dark</item>
     </style>
 </resources>

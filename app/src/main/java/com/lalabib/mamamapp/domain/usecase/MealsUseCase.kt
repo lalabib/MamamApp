@@ -3,7 +3,7 @@ package com.lalabib.mamamapp.domain.usecase
 import com.lalabib.mamamapp.data.remote.network.Result
 import com.lalabib.mamamapp.domain.model.AreaMeals
 import com.lalabib.mamamapp.domain.model.CategoryMeals
-import com.lalabib.mamamapp.domain.model.Meals
+import com.lalabib.mamamapp.domain.model.DetailMeals
 import kotlinx.coroutines.flow.Flow
 
 interface MealsUseCase {
@@ -12,9 +12,11 @@ interface MealsUseCase {
 
     fun getAreas(): Flow<Result<List<AreaMeals>>>
 
-    fun getMealsByCategory(category: String): Flow<Result<List<Meals>>>
+    fun getMealsByCategory(category: String): Flow<Result<List<DetailMeals>>>
 
-    fun getMealsByArea(area: String): Flow<Result<List<Meals>>>
+    fun getMealsByArea(area: String): Flow<Result<List<DetailMeals>>>
 
-    fun getMealsByName(name: String): Flow<Result<List<Meals>>>
+    fun getMealsByName(name: String): Flow<Result<List<DetailMeals>>>
+
+    fun getMealsById(id: String): Flow<Result<List<DetailMeals>>>
 }

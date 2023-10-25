@@ -1,24 +1,25 @@
-package com.lalabib.mamamapp.home
+package com.lalabib.mamamapp.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Button
 import android.widget.SearchView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.textfield.TextInputLayout
 import com.lalabib.mamamapp.R
 import com.lalabib.mamamapp.adapter.MealsAdapter
 import com.lalabib.mamamapp.data.remote.network.Result
 import com.lalabib.mamamapp.databinding.ActivityHomeBinding
+import com.lalabib.mamamapp.databinding.BottomSheetFilterBinding
 import com.lalabib.mamamapp.databinding.ContentHomeBinding
+import com.lalabib.mamamapp.ui.detail.DetailActivity
 import com.lalabib.mamamapp.utils.SharedObject.DEFAULT_VALUE
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +28,7 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var homeContentBinding: ContentHomeBinding
+    private lateinit var bsBinding: BottomSheetFilterBinding
 
     private lateinit var mealsAdapter: MealsAdapter
     private val homeViewModel: HomeViewModel by viewModels()
@@ -44,7 +46,12 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun setupAction() {
-        mealsAdapter = MealsAdapter()
+        mealsAdapter = MealsAdapter { meal ->
+            Intent(this@HomeActivity, DetailActivity::class.java).apply {
+                putExtra(DetailActivity.EXTRA_DATA, meal.idMeal)
+                startActivity(this)
+            }
+        }
 
         binding.icFilter.setOnClickListener {
             setupBottomSheet()
@@ -59,54 +66,43 @@ class HomeActivity : AppCompatActivity() {
     @SuppressLint("InflateParams")
     private fun setupBottomSheet() {
         val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_filter, null)
+        val inflater = LayoutInflater.from(this)
+        bsBinding = BottomSheetFilterBinding.inflate(inflater)
 
-        val edtFilter = view.findViewById<AutoCompleteTextView>(R.id.edt_filter)
-        val edtCategory = view.findViewById<AutoCompleteTextView>(R.id.edt_category)
-        val edtArea = view.findViewById<AutoCompleteTextView>(R.id.edt_area)
-        val btnSubmit = view.findViewById<Button>(R.id.btn_submit)
+        bsBinding.apply {
+            //dropdown filter, category and area
+            setupFilterDropdown(edtFilter)
+            setupCategoryDropdown(edtCategory)
+            setupAreaDropdown(edtArea)
 
-        val tvCategory = view.findViewById<TextView>(R.id.tv_filter_category)
-        val tvArea = view.findViewById<TextView>(R.id.tv_filter_area)
-        val tfCategory = view.findViewById<TextInputLayout>(R.id.tf_category)
-        val tfArea = view.findViewById<TextInputLayout>(R.id.tf_area)
+            //condition filter
+            edtFilter.setOnItemClickListener { parent, _, position, _ ->
+                val selectedFilter = parent.getItemAtPosition(position).toString()
+                val isCategorySelected = selectedFilter == getString(R.string.category)
 
-        //dropdown filter
-        setupFilterDropdown(edtFilter)
+                tvFilterCategory.visibility = if (isCategorySelected) View.VISIBLE else View.GONE
+                tfCategory.visibility = if (isCategorySelected) View.VISIBLE else View.GONE
+                edtCategory.visibility = if (isCategorySelected) View.VISIBLE else View.GONE
 
-        //dropdown category
-        setupCategoryDropdown(edtCategory)
-
-        //dropdown area
-        setupAreaDropdown(edtArea)
-
-        //condition filter
-        edtFilter.setOnItemClickListener { parent, _, position, _ ->
-            val selectedFilter = parent.getItemAtPosition(position).toString()
-            val isCategorySelected = selectedFilter == getString(R.string.category)
-
-            with(tvCategory) { visibility = if (isCategorySelected) View.VISIBLE else View.GONE }
-            with(tfCategory) { visibility = if (isCategorySelected) View.VISIBLE else View.GONE }
-            with(edtCategory) { visibility = if (isCategorySelected) View.VISIBLE else View.GONE }
-
-            with(tvArea) { visibility = if (!isCategorySelected) View.VISIBLE else View.GONE }
-            with(tfArea) { visibility = if (!isCategorySelected) View.VISIBLE else View.GONE }
-            with(edtArea) { visibility = if (!isCategorySelected) View.VISIBLE else View.GONE }
-        }
+                tvFilterArea.visibility = if (!isCategorySelected) View.VISIBLE else View.GONE
+                tfArea.visibility = if (!isCategorySelected) View.VISIBLE else View.GONE
+                edtArea.visibility = if (!isCategorySelected) View.VISIBLE else View.GONE
+            }
 
 
-        btnSubmit.setOnClickListener {
-            val selectedCategory = edtCategory.text.toString()
-            val selectedArea = edtArea.text.toString()
+            btnSubmit.setOnClickListener {
+                val selectedCategory = edtCategory.text.toString()
+                val selectedArea = edtArea.text.toString()
 
-            if (selectedCategory.isNotEmpty()) setupMealsByCategory(selectedCategory)
-            if (selectedArea.isNotEmpty()) setupMealsByArea(selectedArea)
+                if (selectedCategory.isNotEmpty()) setupMealsByCategory(selectedCategory)
+                if (selectedArea.isNotEmpty()) setupMealsByArea(selectedArea)
 
-            dialog.dismiss()
+                dialog.dismiss()
+            }
         }
 
         dialog.setCancelable(true)
-        dialog.setContentView(view)
+        dialog.setContentView(bsBinding.root)
         dialog.show()
     }
 

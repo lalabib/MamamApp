@@ -8,7 +8,7 @@ import com.lalabib.mamamapp.domain.repository.IMealsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import com.lalabib.mamamapp.data.remote.network.Result
-import com.lalabib.mamamapp.domain.model.Meals
+import com.lalabib.mamamapp.domain.model.DetailMeals
 import com.lalabib.mamamapp.utils.DataMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
@@ -29,8 +29,8 @@ class MealsRepository @Inject constructor(private val apiService: ApiService) : 
                     emit(Result.Loading)
                 }
             } catch (e: Exception) {
-                emit(Result.Error(e.toString()))
-                Log.e("TAG", e.toString())
+                emit(Result.Error(e.message.toString()))
+                Log.e("TAG", e.message.toString())
             }
         }.flowOn(Dispatchers.IO)
     }
@@ -46,13 +46,13 @@ class MealsRepository @Inject constructor(private val apiService: ApiService) : 
                     emit(Result.Loading)
                 }
             } catch (e: Exception) {
-                emit(Result.Error(e.toString()))
-                Log.e("TAG", e.toString())
+                emit(Result.Error(e.message.toString()))
+                Log.e("TAG", e.message.toString())
             }
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun getMealsByCategory(category: String): Flow<Result<List<Meals>>> {
+    override fun getMealsByCategory(category: String): Flow<Result<List<DetailMeals>>> {
         return flow {
             try {
                 val response = apiService.getMealsByCategory(category)
@@ -63,13 +63,13 @@ class MealsRepository @Inject constructor(private val apiService: ApiService) : 
                     emit(Result.Loading)
                 }
             } catch (e: Exception) {
-                emit(Result.Error(e.toString()))
-                Log.e("TAG", e.toString())
+                emit(Result.Error(e.message.toString()))
+                Log.e("TAG", e.message.toString())
             }
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun getMealsByArea(area: String): Flow<Result<List<Meals>>> {
+    override fun getMealsByArea(area: String): Flow<Result<List<DetailMeals>>> {
         return flow {
             try {
                 val response = apiService.getMealsByArea(area)
@@ -80,13 +80,13 @@ class MealsRepository @Inject constructor(private val apiService: ApiService) : 
                     emit(Result.Loading)
                 }
             } catch (e: Exception) {
-                emit(Result.Error(e.toString()))
-                Log.e("TAG", e.toString())
+                emit(Result.Error(e.message.toString()))
+                Log.e("TAG", e.message.toString())
             }
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun getMealsByName(name: String): Flow<Result<List<Meals>>> {
+    override fun getMealsByName(name: String): Flow<Result<List<DetailMeals>>> {
         return flow {
             try {
                 val response = apiService.getMealsByName(name)
@@ -97,8 +97,25 @@ class MealsRepository @Inject constructor(private val apiService: ApiService) : 
                     emit(Result.Loading)
                 }
             } catch (e: Exception) {
-                emit(Result.Error(e.toString()))
-                Log.e("TAG", e.toString())
+                emit(Result.Error(e.message.toString()))
+                Log.e("TAG", e.message.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getMealsById(id: String): Flow<Result<List<DetailMeals>>> {
+        return flow {
+            try {
+                val response = apiService.getMealsById(id)
+                val data = DataMapper.responseMealsToDomain(response.meals)
+                if (data.isNotEmpty()) {
+                    emit(Result.Success(data))
+                } else {
+                    emit(Result.Loading)
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+                Log.e("TAG", e.message.toString())
             }
         }.flowOn(Dispatchers.IO)
     }

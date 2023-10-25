@@ -27,6 +27,12 @@
     </style>
 
     <style name="mamamApp" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/bg_top_corner</item>
+        <item name="android:background">@drawable/bg_top_corner_light</item>
+    </style>
+
+    <style name="Bottom_Corner_Radius">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">25dp</item>
+        <item name="cornerSizeBottomRight">25dp</item>
     </style>
 </resources>
