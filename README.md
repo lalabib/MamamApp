@@ -19,11 +19,11 @@ MamamApp is an application that displays a list of meals using the themealdb API
 ## Screenshot
 
 <p>
- <img height="350" src="https://github.com/lalabib/MamamApp/assets/57593172/fc6d0b43-8465-433e-9e16-324263e690c0"/>
- <img height="350" src="https://github.com/lalabib/MamamApp/assets/57593172/ff710417-be43-4f37-b58e-590149194dc8"/>
- <img height="350" src="https://github.com/lalabib/MamamApp/assets/57593172/4bf5b38f-4b51-4944-9b0a-26eac51fa63e"/>
- <img height="350" src="https://github.com/lalabib/MamamApp/assets/57593172/283c36ef-3b71-43da-b1a2-cbf8f1bb3401"/>
- <img height="350" src="https://github.com/lalabib/MamamApp/assets/57593172/1ce5bee3-3a9a-4375-a53b-161101923294"/>
+ <img height="350" src="https://github.com/lalabib/MamamApp/assets/57593172/3ad6e1fc-3628-4804-af8b-152d0a2effb1"/>
+ <img height="350" src="https://github.com/lalabib/MamamApp/assets/57593172/6246491e-4559-4811-8182-1e9813cf9179"/>
+ <img height="350" src="https://github.com/lalabib/MamamApp/assets/57593172/55d50ee7-92d5-43e3-9aeb-4caa08dbd4af"/>
+ <img height="350" src="https://github.com/lalabib/MamamApp/assets/57593172/cf022075-93ba-4738-a34b-6c0848c9ce01"/>
+ <img height="350" src="https://github.com/lalabib/MamamApp/assets/57593172/6953959a-258e-42e3-a4d7-7992b4551ab7"/>
 </p>
 
 ## Author
