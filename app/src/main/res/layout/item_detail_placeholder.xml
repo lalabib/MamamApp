@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
 
         <FrameLayout
-            android:id="@+id/fl_poster"
+            android:id="@+id/fl_poster_placeholder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -18,7 +18,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_poster"
+                android:id="@+id/iv_poster_placeholder"
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
                 android:background="@color/light_gray"
@@ -29,108 +29,106 @@
         </FrameLayout>
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_title_placeholder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="30dp"
-            android:textSize="24sp"
             android:background="@color/light_gray"
+            android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/tv_category_area"
+            app:layout_constraintEnd_toStartOf="@id/tv_category_area_placeholder"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fl_poster"
+            app:layout_constraintTop_toBottomOf="@id/fl_poster_placeholder"
             tools:text="@string/name" />
 
         <TextView
-            android:id="@+id/tv_category_area"
+            android:id="@+id/tv_category_area_placeholder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:background="@color/light_gray"
             android:textColor="@color/blue_400"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:background="@color/light_gray"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fl_poster"
+            app:layout_constraintTop_toBottomOf="@id/fl_poster_placeholder"
             tools:text="@string/category_area" />
 
         <TextView
-            android:id="@+id/tv_video"
+            android:id="@+id/tv_video_placeholder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="@color/light_gray"
             android:text="@string/video"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:background="@color/light_gray"
-            app:layout_constraintStart_toStartOf="@id/tv_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintStart_toStartOf="@id/tv_title_placeholder"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_placeholder" />
 
         <ImageView
-            android:id="@+id/youtube_player"
+            android:id="@+id/youtube_player_placeholder"
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:contentDescription="@string/image"
             android:background="@color/light_gray"
+            android:contentDescription="@string/image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_video" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_video_placeholder" />
 
         <TextView
-            android:id="@+id/tv_ingredient_title"
+            android:id="@+id/tv_ingredient_title_placeholder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="@color/light_gray"
             android:text="@string/ingredient"
             android:textSize="18sp"
-            android:background="@color/light_gray"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/tv_title"
-            app:layout_constraintTop_toBottomOf="@id/youtube_player" />
+            app:layout_constraintStart_toStartOf="@id/tv_title_placeholder"
+            app:layout_constraintTop_toBottomOf="@id/youtube_player_placeholder" />
 
         <TextView
-            android:id="@+id/tv_ingredient"
+            android:id="@+id/tv_ingredient_placeholder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:textSize="16sp"
             android:background="@color/light_gray"
-            app:layout_constraintEnd_toEndOf="@id/tv_category_area"
-            app:layout_constraintStart_toStartOf="@id/tv_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_ingredient_title"
-            tools:text="@string/ingredient" />
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/tv_category_area_placeholder"
+            app:layout_constraintStart_toStartOf="@id/tv_title_placeholder"
+            app:layout_constraintTop_toBottomOf="@id/tv_ingredient_title_placeholder" />
 
         <TextView
-            android:id="@+id/tv_instruction_title"
+            android:id="@+id/tv_instruction_title_placeholder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="@color/light_gray"
             android:text="@string/instruction"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:background="@color/light_gray"
-            app:layout_constraintStart_toStartOf="@id/tv_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_ingredient" />
+            app:layout_constraintStart_toStartOf="@id/tv_title_placeholder"
+            app:layout_constraintTop_toBottomOf="@id/tv_ingredient_placeholder" />
 
         <TextView
-            android:id="@+id/tv_instruction"
+            android:id="@+id/tv_instruction_placeholder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="20dp"
-            android:textSize="16sp"
             android:background="@color/light_gray"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/tv_category_area"
-            app:layout_constraintStart_toStartOf="@id/tv_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_instruction_title"
-            tools:text="@string/lorem_ipsum" />
+            app:layout_constraintEnd_toEndOf="@id/tv_category_area_placeholder"
+            app:layout_constraintStart_toStartOf="@id/tv_title_placeholder"
+            app:layout_constraintTop_toBottomOf="@id/tv_instruction_title_placeholder" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
