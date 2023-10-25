@@ -19,4 +19,16 @@ object SharedObject {
             )
             .into(imageView)
     }
+
+    fun extractYouTubeVideoId(youtubeUrl: String): String? {
+        val queryParameters = youtubeUrl.split("?").getOrNull(1)
+        val params = queryParameters?.split("&")
+        params?.forEach {
+            val keyValue = it.split("=")
+            if (keyValue.size == 2 && keyValue[0] == "v") {
+                return keyValue[1]
+            }
+        }
+        return null
+    }
 }

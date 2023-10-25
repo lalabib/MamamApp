@@ -35,4 +35,8 @@
         <item name="cornerSizeBottomLeft">25dp</item>
         <item name="cornerSizeBottomRight">25dp</item>
     </style>
+
+    <style name="search_view">
+        <item name="android:background">@drawable/bg_search_corner_light</item>
+    </style>
 </resources>

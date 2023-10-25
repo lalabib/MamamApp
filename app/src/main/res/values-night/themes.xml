@@ -27,4 +27,8 @@
     <style name="mamamApp" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bg_top_corner_dark</item>
     </style>
+
+    <style name="search_view">
+        <item name="android:background">@drawable/bg_search_corner_dark</item>
+    </style>
 </resources>

@@ -21,10 +21,10 @@
 
                 <SearchView
                     android:id="@+id/search_view"
+                    style="@style/search_view"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
-                    android:background="@drawable/bg_white_corner"
                     android:iconifiedByDefault="false"
                     android:queryHint="@string/search_hint"
                     app:layout_constraintStart_toStartOf="parent"

@@ -46,61 +46,82 @@
             android:id="@+id/tv_category_area"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/blue_400"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/blue_400"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_poster"
             tools:text="@string/category_area" />
 
         <TextView
-            android:id="@+id/tv_instruction_title"
+            android:id="@+id/tv_video"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/instruction"
+            android:layout_marginTop="16dp"
+            android:text="@string/video"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-        <TextView
-            android:id="@+id/tv_instruction"
-            android:layout_width="0dp"
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@id/tv_category_area"
-            app:layout_constraintStart_toStartOf="@id/tv_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_instruction_title"
-            tools:text="@string/lorem_ipsum" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_video" />
 
         <TextView
             android:id="@+id/tv_ingredient_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/ingredient"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_instruction" />
+            app:layout_constraintStart_toStartOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/youtube_player" />
 
         <TextView
             android:id="@+id/tv_ingredient"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="20dp"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@id/tv_category_area"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tv_ingredient_title"
+            app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_ingredient_title"
             tools:text="@string/ingredient" />
+
+        <TextView
+            android:id="@+id/tv_instruction_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/instruction"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_ingredient" />
+
+        <TextView
+            android:id="@+id/tv_instruction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tv_category_area"
+            app:layout_constraintStart_toStartOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_instruction_title"
+            tools:text="@string/lorem_ipsum" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

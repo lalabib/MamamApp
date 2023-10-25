@@ -1,15 +1,21 @@
 package com.lalabib.mamamapp.ui.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.lalabib.mamamapp.R
 import com.lalabib.mamamapp.data.remote.network.Result
 import com.lalabib.mamamapp.databinding.ActivityDetailBinding
 import com.lalabib.mamamapp.domain.model.DetailMeals
+import com.lalabib.mamamapp.utils.SharedObject.extractYouTubeVideoId
 import com.lalabib.mamamapp.utils.SharedObject.loadAvatar
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.DefaultPlayerUiController
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
@@ -66,6 +72,11 @@ class DetailActivity : AppCompatActivity() {
             tvInstruction.text = meals.strInstructions
             tvCategoryArea.append("${meals.strCategory}\n${meals.strArea}")
             loadAvatar(ivPoster, meals.strMealThumb)
+
+            val video = extractYouTubeVideoId(meals.strYoutube!!)
+            video?.let {
+                youtubePlayer(it)
+            }
 
             if (!meals.strIngredient1.isNullOrBlank() && !meals.strMeasure1.isNullOrBlank()) {
                 tvIngredient.append("\u2022 ${meals.strIngredient1} ${meals.strMeasure1}")
@@ -128,6 +139,27 @@ class DetailActivity : AppCompatActivity() {
                 tvIngredient.append("\n\u2022 ${meals.strIngredient20} ${meals.strMeasure20}")
             }
         }
+    }
+
+    private fun youtubePlayer(videoId: String?) {
+        val youTubePlayerView = binding.youtubePlayer
+        lifecycle.addObserver(youTubePlayerView)
+
+        youTubePlayerView.enableAutomaticInitialization = false
+
+        val listener = object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                // using pre-made custom ui
+                val defaultPlayerUiController = DefaultPlayerUiController(youTubePlayerView, youTubePlayer)
+                youTubePlayerView.setCustomPlayerUi(defaultPlayerUiController.rootView)
+
+                // play video
+                youTubePlayer.cueVideo(videoId!!, 0f)
+            }
+        }
+        // disable iframe ui
+        val options = IFramePlayerOptions.Builder().controls(0).build()
+        youTubePlayerView.initialize(listener, options)
     }
 
     override fun onSupportNavigateUp(): Boolean {
