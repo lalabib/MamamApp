@@ -18,6 +18,9 @@
     <string name="error_message">an error occurred while fetching data</string>
     <string name="error_data">An error occurred while passing data</string>
     <string name="search_error">Meals not found</string>
+    <string name="add_favorite">Added to Favorite</string>
+    <string name="remove_favorite">Removed from Favorite</string>
+    <string name="fav_empty">Lets add your favorite movie!</string>
 
     <string-array name="filter">
         <item>Category</item>

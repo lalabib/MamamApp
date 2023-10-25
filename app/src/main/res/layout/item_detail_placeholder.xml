@@ -21,10 +21,10 @@
                 android:id="@+id/iv_poster"
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
+                android:background="@color/light_gray"
                 android:contentDescription="@string/image"
                 android:scaleType="fitXY"
-                app:shapeAppearanceOverlay="@style/Bottom_Corner_Radius"
-                tools:src="@tools:sample/avatars" />
+                app:shapeAppearanceOverlay="@style/Bottom_Corner_Radius" />
 
         </FrameLayout>
 
@@ -36,6 +36,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="30dp"
             android:textSize="24sp"
+            android:background="@color/light_gray"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/tv_category_area"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,20 +52,10 @@
             android:textColor="@color/blue_400"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:background="@color/light_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_poster"
             tools:text="@string/category_area" />
-
-        <CheckBox
-            android:id="@+id/ic_favorite"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:button="@drawable/selector_favorite"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:useMaterialThemeColors="false" />
 
         <TextView
             android:id="@+id/tv_video"
@@ -74,16 +65,19 @@
             android:text="@string/video"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:background="@color/light_gray"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        <ImageView
             android:id="@+id/youtube_player"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="220dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:contentDescription="@string/image"
+            android:background="@color/light_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_video" />
@@ -95,6 +89,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/ingredient"
             android:textSize="18sp"
+            android:background="@color/light_gray"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/youtube_player" />
@@ -105,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:textSize="16sp"
+            android:background="@color/light_gray"
             app:layout_constraintEnd_toEndOf="@id/tv_category_area"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_ingredient_title"
@@ -118,6 +114,7 @@
             android:text="@string/instruction"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:background="@color/light_gray"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_ingredient" />
 
@@ -128,26 +125,12 @@
             android:layout_marginTop="6dp"
             android:layout_marginBottom="20dp"
             android:textSize="16sp"
+            android:background="@color/light_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/tv_category_area"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_instruction_title"
             tools:text="@string/lorem_ipsum" />
-
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/progress_bar"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shimmer_auto_start="true">
-
-            <include layout="@layout/item_detail_placeholder" />
-
-        </com.facebook.shimmer.ShimmerFrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

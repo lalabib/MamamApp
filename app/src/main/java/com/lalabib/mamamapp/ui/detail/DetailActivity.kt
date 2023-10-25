@@ -1,6 +1,7 @@
 package com.lalabib.mamamapp.ui.detail
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -49,14 +50,16 @@ class DetailActivity : AppCompatActivity() {
                 if (detailMeal != null) {
                     when (detailMeal) {
                         is Result.Loading -> {
-
+                            showLoading(true)
                         }
 
                         is Result.Success -> {
+                            showLoading(false)
                             populateMeals(detailMeal.data[0])
                         }
 
                         is Result.Error -> {
+                            showLoading(false)
                             Toast.makeText(
                                 this@DetailActivity,
                                 getString(R.string.error_data),
@@ -182,13 +185,27 @@ class DetailActivity : AppCompatActivity() {
             }
 
             icFavorite.setOnClickListener {
-                if (isFavorite) {
-                    detailViewModel.deleteFavorite(favoriteMeal)
-                } else {
+                if (!isFavorite) {
+                    Toast.makeText(
+                        this@DetailActivity,
+                        getString(R.string.add_favorite),
+                        Toast.LENGTH_SHORT
+                    ).show()
                     detailViewModel.insertFavorite(favoriteMeal)
+                } else {
+                    Toast.makeText(
+                        this@DetailActivity,
+                        getString(R.string.remove_favorite),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    detailViewModel.deleteFavorite(favoriteMeal)
                 }
             }
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     override fun onSupportNavigateUp(): Boolean {

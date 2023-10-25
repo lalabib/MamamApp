@@ -3,6 +3,7 @@ package com.lalabib.mamamapp.ui.favorite
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,19 +47,29 @@ class FavoriteActivity : AppCompatActivity() {
         favViewModel.getAllFavorites.observe(this@FavoriteActivity) { meal ->
             if (!meal.isNullOrEmpty()) {
                 mealsAdapter.submitList(meal)
+                favIsNotEmpty()
             } else {
-                Toast.makeText(
-                    this@FavoriteActivity,
-                    getString(R.string.error_data),
-                    Toast.LENGTH_SHORT
-                ).show()
+                favIsEmpty()
             }
-
         }
 
         binding.rvMeals.apply {
             layoutManager = LinearLayoutManager(this@FavoriteActivity)
             adapter = mealsAdapter
+        }
+    }
+
+    private fun favIsEmpty() {
+        binding.apply {
+            rvMeals.visibility = View.GONE
+            tvEmpty.visibility = View.VISIBLE
+        }
+    }
+
+    private fun favIsNotEmpty() {
+        binding.apply {
+            rvMeals.visibility = View.VISIBLE
+            tvEmpty.visibility = View.GONE
         }
     }
 
