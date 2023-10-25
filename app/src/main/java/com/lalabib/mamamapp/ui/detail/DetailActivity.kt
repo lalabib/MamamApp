@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.lalabib.mamamapp.R
+import com.lalabib.mamamapp.data.local.entity.FavoriteEntity
 import com.lalabib.mamamapp.data.remote.network.Result
 import com.lalabib.mamamapp.databinding.ActivityDetailBinding
 import com.lalabib.mamamapp.domain.model.DetailMeals
@@ -22,6 +23,8 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
     private val detailViewModel: DetailViewModel by viewModels()
+
+    private var isFavorite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +52,7 @@ class DetailActivity : AppCompatActivity() {
 
                         }
 
-                        is  Result.Success -> {
+                        is Result.Success -> {
                             populateMeals(detailMeal.data[0])
                         }
 
@@ -138,6 +141,8 @@ class DetailActivity : AppCompatActivity() {
             if (!meals.strIngredient20.isNullOrBlank() && !meals.strMeasure20.isNullOrBlank()) {
                 tvIngredient.append("\n\u2022 ${meals.strIngredient20} ${meals.strMeasure20}")
             }
+
+            setFavorite(meals)
         }
     }
 
@@ -150,7 +155,8 @@ class DetailActivity : AppCompatActivity() {
         val listener = object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 // using pre-made custom ui
-                val defaultPlayerUiController = DefaultPlayerUiController(youTubePlayerView, youTubePlayer)
+                val defaultPlayerUiController =
+                    DefaultPlayerUiController(youTubePlayerView, youTubePlayer)
                 youTubePlayerView.setCustomPlayerUi(defaultPlayerUiController.rootView)
 
                 // play video
@@ -160,6 +166,29 @@ class DetailActivity : AppCompatActivity() {
         // disable iframe ui
         val options = IFramePlayerOptions.Builder().controls(0).build()
         youTubePlayerView.initialize(listener, options)
+    }
+
+    private fun setFavorite(meals: DetailMeals) {
+        val favoriteMeal = FavoriteEntity(
+            idMeal = meals.idMeal!!,
+            strMeal = meals.strMeal!!,
+            strMealThumb = meals.strMealThumb!!
+        )
+
+        binding.apply {
+            detailViewModel.checkMeal(meals.idMeal).observe(this@DetailActivity) {
+                isFavorite = it.isNotEmpty()
+                icFavorite.isChecked = isFavorite
+            }
+
+            icFavorite.setOnClickListener {
+                if (isFavorite) {
+                    detailViewModel.deleteFavorite(favoriteMeal)
+                } else {
+                    detailViewModel.insertFavorite(favoriteMeal)
+                }
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

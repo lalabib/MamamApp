@@ -20,6 +20,7 @@ import com.lalabib.mamamapp.databinding.ActivityHomeBinding
 import com.lalabib.mamamapp.databinding.BottomSheetFilterBinding
 import com.lalabib.mamamapp.databinding.ContentHomeBinding
 import com.lalabib.mamamapp.ui.detail.DetailActivity
+import com.lalabib.mamamapp.ui.favorite.FavoriteActivity
 import com.lalabib.mamamapp.utils.SharedObject.DEFAULT_VALUE
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,14 +54,20 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        binding.icFilter.setOnClickListener {
-            setupBottomSheet()
-        }
-
         homeContentBinding.rvMeals.apply {
             layoutManager = LinearLayoutManager(this@HomeActivity)
             adapter = mealsAdapter
         }
+
+        binding.apply {
+            icFilter.setOnClickListener {
+                setupBottomSheet()
+            }
+            icFavorite.setOnClickListener {
+                moveToFavorite()
+            }
+        }
+
     }
 
     @SuppressLint("InflateParams")
@@ -265,6 +272,12 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
 
+        }
+    }
+
+    private fun moveToFavorite() {
+        Intent(this@HomeActivity, FavoriteActivity::class.java).apply {
+            startActivity(this)
         }
     }
 

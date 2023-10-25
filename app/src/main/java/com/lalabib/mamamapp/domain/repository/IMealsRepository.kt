@@ -1,5 +1,6 @@
 package com.lalabib.mamamapp.domain.repository
 
+import com.lalabib.mamamapp.data.local.entity.FavoriteEntity
 import com.lalabib.mamamapp.data.remote.network.Result
 import com.lalabib.mamamapp.domain.model.AreaMeals
 import com.lalabib.mamamapp.domain.model.CategoryMeals
@@ -19,4 +20,12 @@ interface IMealsRepository {
     fun getMealsByName(name: String): Flow<Result<List<DetailMeals>>>
 
     fun getMealsById(id: String): Flow<Result<List<DetailMeals>>>
+
+    suspend fun insertFavorite(favorite: FavoriteEntity)
+
+    fun getAllFavorites(): Flow<List<FavoriteEntity>>
+
+    fun checkMeal(id: String): Flow<List<FavoriteEntity>>
+
+    suspend fun deleteFavorite(favorite: FavoriteEntity)
 }

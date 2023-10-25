@@ -55,6 +55,17 @@
             app:layout_constraintTop_toBottomOf="@id/fl_poster"
             tools:text="@string/category_area" />
 
+        <CheckBox
+            android:id="@+id/ic_favorite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:button="@drawable/selector_favorite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:useMaterialThemeColors="false" />
+
         <TextView
             android:id="@+id/tv_video"
             android:layout_width="0dp"

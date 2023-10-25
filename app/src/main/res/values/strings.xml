@@ -2,6 +2,7 @@
     <string name="app_name">MamamApp</string>
 
     <string name="detail_title">Detail</string>
+    <string name="favorite_title">Favorite</string>
     <string name="image">Image</string>
     <string name="name">Name</string>
     <string name="search_hint">Search by Name..</string>

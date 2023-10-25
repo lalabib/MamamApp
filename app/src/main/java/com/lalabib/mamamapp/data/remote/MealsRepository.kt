@@ -1,6 +1,8 @@
 package com.lalabib.mamamapp.data.remote
 
 import android.util.Log
+import com.lalabib.mamamapp.data.local.LocalDataSource
+import com.lalabib.mamamapp.data.local.entity.FavoriteEntity
 import com.lalabib.mamamapp.data.remote.network.ApiService
 import com.lalabib.mamamapp.domain.model.AreaMeals
 import com.lalabib.mamamapp.domain.model.CategoryMeals
@@ -16,7 +18,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MealsRepository @Inject constructor(private val apiService: ApiService) : IMealsRepository {
+class MealsRepository @Inject constructor(
+    private val apiService: ApiService,
+    private val localDataSource: LocalDataSource
+) : IMealsRepository {
 
     override fun getCategories(): Flow<Result<List<CategoryMeals>>> {
         return flow {
@@ -119,4 +124,13 @@ class MealsRepository @Inject constructor(private val apiService: ApiService) : 
             }
         }.flowOn(Dispatchers.IO)
     }
+
+    override suspend fun insertFavorite(favorite: FavoriteEntity) =
+        localDataSource.insertFavorite(favorite)
+
+    override fun getAllFavorites(): Flow<List<FavoriteEntity>> = localDataSource.getAllFavorites()
+
+    override fun checkMeal(id: String): Flow<List<FavoriteEntity>>  = localDataSource.checkMeal(id)
+
+    override suspend fun deleteFavorite(favorite: FavoriteEntity) = localDataSource.deleteFavorite(favorite)
 }
