@@ -50,9 +50,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@color/light_gray"
-            android:textColor="@color/blue_400"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_poster_placeholder"
             tools:text="@string/category_area" />
@@ -63,11 +61,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@color/light_gray"
-            android:text="@string/video"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tv_title_placeholder"
-            app:layout_constraintTop_toBottomOf="@id/tv_title_placeholder" />
+            app:layout_constraintTop_toBottomOf="@id/tv_title_placeholder"
+            tools:text="@string/video" />
 
         <ImageView
             android:id="@+id/youtube_player_placeholder"
@@ -88,11 +86,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@color/light_gray"
-            android:text="@string/ingredient"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tv_title_placeholder"
-            app:layout_constraintTop_toBottomOf="@id/youtube_player_placeholder" />
+            app:layout_constraintTop_toBottomOf="@id/youtube_player_placeholder"
+            tools:text="@string/ingredient" />
 
         <TextView
             android:id="@+id/tv_ingredient_placeholder"
